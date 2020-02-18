@@ -24,17 +24,6 @@ export class TournamentDataService {
         return this.mockData;
     }
 
-    createTournament(contestants: iContestants): iTournament {
-        return [
-            {
-                matches: [
-
-                ],
-                nextRound: undefined
-            }
-        ]
-    }
-
     private create1stTournamentRound(contestants: iContestants): iTournamentRoundData {
         const cloneList = contestants.contestantsList.slice();
         const matches: iMatch[] = [];
@@ -50,8 +39,34 @@ export class TournamentDataService {
             }
         }
         return {
+            previousRound: undefined,
             matches: matches,
             nextRound: undefined
+        }
+    }
+
+    private createNTournamentRounds(prevRoundData: iTournamentRoundData): iTournamentRoundData {
+        const prevRoundNumBlocks = prevRoundData.matches.length;
+        if (prevRoundNumBlocks > 1) {
+            const curRoundNumBlocks = prevRoundNumBlocks % 2 === 0 ?
+                prevRoundNumBlocks/2 : prevRoundNumBlocks + 1;
+            const curRoundMatches: iMatch[] = [];
+            for (let x = 0; x < curRoundNumBlocks; x++) {
+                curRoundMatches.push({
+                    player1: undefined,
+                    player2: undefined,
+                    winner: undefined
+                })
+            }
+            const result = {
+                previousRound: prevRoundData,
+                nextRound: undefined,
+                matches: curRoundMatches
+            }
+            result.nextRound = this.createNTournamentRounds(result);
+            return result;
+        } else {
+            return undefined;
         }
     }
 
@@ -77,6 +92,7 @@ export interface iContestants {
 export type iTournament = Array<iTournamentRoundData>;
 
 export interface iTournamentRoundData {
+    previousRound: iTournamentRoundData | null;
     matches: iMatch[];
     nextRound: iTournamentRoundData | undefined;
     final?: boolean;
