@@ -1,0 +1,9 @@
+2/19/2020
+--removed final? boolean from rounddata, wasnt being used.  may add later
+-first round based on players and subsequent tournament round data is ready.
+
+NEXT STEPS:
+1. how to add winners through functions, etc.  and how to handle odd number brackets auto wins?
+2. consider ngrx for the tournament (not needed yet, but will need when dealing with component).
+
+

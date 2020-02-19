@@ -90,7 +90,7 @@ describe('tournamentDataService', () => {
         expect(firstRound).toEqual(odd1stRoundData);
     })
 
-    it('expect createNTournamentRounds to create a full tournament with even numbered matches', () => {
+    it('expect createNTournamentRounds to create subsequent matches with even numbered matches', () => {
         const round2 = tourneyService['createNTournamentRounds'](odd1stRoundData);
         const round3 = round2.nextRound;
         expect(round2.matches.length).toBe(2);
@@ -101,6 +101,24 @@ describe('tournamentDataService', () => {
         expect(round3.nextRound).toBeUndefined();
     })
 
-    it('Next step -- figure out how to handle odd number rounds.', () => {
+    it('createTournamentData will create tournament with first round data and subsequent empty rounds, combine data into an array', () => {
+        const tournament = tourneyService['createTournamentData'](fakeContestantSetEven);
+        expect(tournament.length).toBe(3);
+        const round1 = tournament[0];
+        const round2 = tournament[1];
+        const round3 = tournament[2];
+        expect(round1.nextRound).toBe(round2);
+        expect(round1.matches.length).toBe(4);
+        expect(round1.previousRound).toBeUndefined();
+        expect(round2.matches.length).toBe(2);
+        expect(round2.previousRound).toBe(round1);
+        expect(round2.nextRound).toBe(round3);
+        expect(round3.matches.length).toBe(1);
+        expect(round3.previousRound).toBe(round2)
+        expect(round3.nextRound).toBeUndefined();
+    })
+
+    it('Next step -- figure out how to handle odd number rounds while adding win handling.', () => {
+
     })
 })

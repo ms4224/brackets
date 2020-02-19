@@ -24,6 +24,19 @@ export class TournamentDataService {
         return this.mockData;
     }
 
+    private createTournamentData(contestants: iContestants): iTournament {
+        const round1: iTournamentRoundData = this.create1stTournamentRound(contestants);
+        const nextRoundsLinkedList: iTournamentRoundData = this.createNTournamentRounds(round1);
+        round1.nextRound = nextRoundsLinkedList; //link first round to empty subsequent rounds
+        const tournament: iTournament = [];
+        let checkCurrentRound: iTournamentRoundData = round1;
+        while (checkCurrentRound !== undefined) { // add each round to an array for easy reading in components
+            tournament.push(checkCurrentRound);
+            checkCurrentRound = checkCurrentRound.nextRound;
+        }
+        return tournament;
+    }
+
     private create1stTournamentRound(contestants: iContestants): iTournamentRoundData {
         const cloneList = contestants.contestantsList.slice();
         const matches: iMatch[] = [];
@@ -70,10 +83,6 @@ export class TournamentDataService {
         }
     }
 
-    private createEmptyTournamentRound(numFighters: number) {
-
-    }
-
     private createMatch(player1: string, player2: string): iMatch {
         return {
             player1: player1,
@@ -95,7 +104,6 @@ export interface iTournamentRoundData {
     previousRound: iTournamentRoundData | null;
     matches: iMatch[];
     nextRound: iTournamentRoundData | undefined;
-    final?: boolean;
 }
 
 export interface iMatch {
