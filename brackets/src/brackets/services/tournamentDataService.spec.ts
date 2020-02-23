@@ -1,50 +1,45 @@
 import { TournamentDataService, iContestants, iTournamentRoundData } from "./tournamentDataService"
+import { createContestantDataFromStringList } from './tournamentTestHelpers'
 
 describe('tournamentDataService', () => {
-    const fakeContestantSetEven: iContestants = {
-        contestantsList: [
-            'john',
-            'jill',
-            'bill',
-            'noob',
-            'mario',
-            'bowser',
-            'peach',
-            'yoshi'
-        ],
-        numContestants: 8
-    }
-    const fakeContestantSetOdd: iContestants = {
-        contestantsList: [
-            'john',
-            'jill',
-            'bill',
-            'noob',
-            'mario',
-            'bowser',
-            'peach',
-        ],
-        numContestants: 8
-    }
+    const fakeContestantSetEven: iContestants = createContestantDataFromStringList([
+        'john',
+        'jill',
+        'bill',
+        'noob',
+        'mario',
+        'bowser',
+        'peach',
+        'yoshi'
+    ]);
+    const fakeContestantSetOdd: iContestants = createContestantDataFromStringList([
+        'john',
+        'jill',
+        'bill',
+        'noob',
+        'mario',
+        'bowser',
+        'peach',
+    ]);
     const odd1stRoundData: iTournamentRoundData = {
         matches: [
             {
-                player1: 'john',
-                player2: 'jill',
+                player1: {name: 'john'},
+                player2: {name: 'jill'},
                 winner: undefined
             },
             {
-                player1: 'bill',
-                player2: 'noob',
+                player1: {name: 'bill'},
+                player2: {name: 'noob'},
                 winner: undefined
             },
             {
-                player1: 'mario',
-                player2: 'bowser',
+                player1: {name: 'mario'},
+                player2: {name: 'bowser'},
                 winner: undefined
             },
             {
-                player1: 'peach',
+                player1: {name: 'peach'},
                 player2: undefined,
                 winner: undefined
             },
@@ -55,23 +50,23 @@ describe('tournamentDataService', () => {
     const even1stRoundData: iTournamentRoundData = {
         matches: [
             {
-                player1: 'john',
-                player2: 'jill',
+                player1: {name: 'john'},
+                player2: {name: 'jill'},
                 winner: undefined
             },
             {
-                player1: 'bill',
-                player2: 'noob',
+                player1: {name: 'bill'},
+                player2: {name: 'noob'},
                 winner: undefined
             },
             {
-                player1: 'mario',
-                player2: 'bowser',
+                player1: {name: 'mario'},
+                player2: {name: 'bowser'},
                 winner: undefined
             },
             {
-                player1: 'peach',
-                player2: 'yoshi',
+                player1: {name: 'peach'},
+                player2: {name: 'yoshi'},
                 winner: undefined
             },
         ],

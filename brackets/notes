@@ -6,4 +6,8 @@ NEXT STEPS:
 1. how to add winners through functions, etc.  and how to handle odd number brackets auto wins?
 2. consider ngrx for the tournament (not needed yet, but will need when dealing with component).
 
+IDEA:
+1. how to handle same tournament service handling team tournaments, etc? - in the tournament object, matches have "fighters"
+a. these fighters could be different types or "cards"/fighterData.  there could be a team one, a 3v3 one, etc.
+
 

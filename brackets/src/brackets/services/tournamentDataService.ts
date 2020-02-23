@@ -4,25 +4,11 @@ import { Injectable } from '@angular/core';
     providedIn: 'root',
 })
 export class TournamentDataService {
-    mockData: iContestants = {
-        contestantsList: [
-            'john',
-            'jill',
-            'bill',
-            'noob',
-            'mario',
-            'bowser',
-            'peach',
-            'yoshi'
-        ],
-        numContestants: 8
-    }
-
     constructor() { }
 
-    getData(): iContestants {
-        return this.mockData;
-    }
+    // getData(): iContestants {
+    //     return this.mockData;
+    // }
 
     private createTournamentData(contestants: iContestants): iTournament {
         const round1: iTournamentRoundData = this.create1stTournamentRound(contestants);
@@ -83,7 +69,7 @@ export class TournamentDataService {
         }
     }
 
-    private createMatch(player1: string, player2: string): iMatch {
+    private createMatch(player1: iPlayerData, player2: iPlayerData): iMatch {
         return {
             player1: player1,
             player2: player2,
@@ -91,10 +77,14 @@ export class TournamentDataService {
         }
     }
 
+    public setWinner(match: iMatch) {
+        // match.winner = match
+    }
+
 }
 
 export interface iContestants {
-    contestantsList: Array<string>;
+    contestantsList: Array<iPlayerData>;
     numContestants: number;
 }
 
@@ -107,7 +97,11 @@ export interface iTournamentRoundData {
 }
 
 export interface iMatch {
-    player1: string;
-    player2: string | undefined;
-    winner: string | undefined;
+    player1: iPlayerData;
+    player2: iPlayerData | undefined;
+    winner: iPlayerData | undefined;
+}
+
+export interface iPlayerData {
+    name: string;
 }
