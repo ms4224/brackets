@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AUTO_WIN } from '../keywords';
 
 @Injectable({
     providedIn: 'root',
@@ -40,7 +41,8 @@ export class TournamentDataService {
         return {
             previousRound: undefined,
             matches: matches,
-            nextRound: undefined
+            nextRound: undefined,
+            numContestants: contestants.numContestants
         }
     }
 
@@ -48,7 +50,7 @@ export class TournamentDataService {
         const prevRoundNumBlocks = prevRoundData.matches.length;
         if (prevRoundNumBlocks > 1) {
             const curRoundNumBlocks = prevRoundNumBlocks % 2 === 0 ?
-                prevRoundNumBlocks/2 : prevRoundNumBlocks + 1;
+                prevRoundNumBlocks/2 : Math.floor(prevRoundNumBlocks/2 + 1);
             const curRoundMatches: iMatch[] = [];
             for (let x = 0; x < curRoundNumBlocks; x++) {
                 curRoundMatches.push({
@@ -57,10 +59,15 @@ export class TournamentDataService {
                     winner: undefined
                 })
             }
-            const result = {
+            const result: iTournamentRoundData = {
                 previousRound: prevRoundData,
                 nextRound: undefined,
-                matches: curRoundMatches
+                matches: curRoundMatches,
+                numContestants: prevRoundData.numContestants %2 === 0 ?
+                    prevRoundData.numContestants/2 : Math.floor(prevRoundData.numContestants/2 + 1)
+            }
+            if (result.numContestants %2 !== 0) {
+                this.setRandomAutoWinForRoundData(result);
             }
             result.nextRound = this.createNTournamentRounds(result);
             return result;
@@ -77,8 +84,16 @@ export class TournamentDataService {
         }
     }
 
-    public setWinner(match: iMatch) {
-        // match.winner = match
+    public setWinner(match: iMatch, playerData: iPlayerData) {
+        match.winner = playerData;
+        //to do: not important now, but should throw error if playerData is not one of the two players of the match
+    }
+
+    private setRandomAutoWinForRoundData(round: iTournamentRoundData) {
+        // don't worry about figuring out if the round should have an autowin, that logic goes elsewhere
+        const numMatches = round.matches.length;
+        const luckyMatchIndex = Math.floor(Math.random() * numMatches);
+        round.matches[luckyMatchIndex].player2 = autoWin;
     }
 
 }
@@ -94,6 +109,7 @@ export interface iTournamentRoundData {
     previousRound: iTournamentRoundData | null;
     matches: iMatch[];
     nextRound: iTournamentRoundData | undefined;
+    numContestants: number;
 }
 
 export interface iMatch {
@@ -104,4 +120,8 @@ export interface iMatch {
 
 export interface iPlayerData {
     name: string;
+}
+
+export const autoWin: iPlayerData = {
+    name: AUTO_WIN
 }

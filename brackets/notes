@@ -1,6 +1,7 @@
-2/19/2020
---removed final? boolean from rounddata, wasnt being used.  may add later
--first round based on players and subsequent tournament round data is ready.
+2/27/2020
+-started modifying existing functions to autocreate "Bys" for tournament rounds with odd number of contestants.
+-logic for this finished, but changed interface structures, which messed up some tests.  Need to fix the tests and also check in the tests
+that autowins are created (randomly, so check by arrays).  May want to write assertion function for these as the unit tests are getting long.
 
 NEXT STEPS:
 1. how to add winners through functions, etc.  and how to handle odd number brackets auto wins?

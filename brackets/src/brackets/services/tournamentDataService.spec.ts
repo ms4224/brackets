@@ -1,5 +1,6 @@
-import { TournamentDataService, iContestants, iTournamentRoundData } from "./tournamentDataService"
+import { TournamentDataService, iContestants, iTournamentRoundData, iMatch } from "./tournamentDataService"
 import { createContestantDataFromStringList } from './tournamentTestHelpers'
+import { AUTO_WIN } from '../keywords';
 
 describe('tournamentDataService', () => {
     const fakeContestantSetEven: iContestants = createContestantDataFromStringList([
@@ -111,6 +112,29 @@ describe('tournamentDataService', () => {
         expect(round3.matches.length).toBe(1);
         expect(round3.previousRound).toBe(round2)
         expect(round3.nextRound).toBeUndefined();
+    })
+
+    it('setWinner takes a match object and a winner and sets the winner', () => {
+        const testMatch: iMatch = {
+            player1: {name: 'sub-zero'},
+            player2: {name: 'scorpion'},
+            winner: undefined
+        };
+        tourneyService.setWinner(testMatch, testMatch.player2);
+        expect(testMatch.winner).toBe(testMatch.player2);
+    })
+
+    it('setRandomAutoWinForRoundData randomly sets one match player2 to autowin', () => {
+        const tournament = tourneyService['createTournamentData'](fakeContestantSetEven);
+        const round2 = tournament[1];
+        let result = [];
+        tourneyService['setRandomAutoWinForRoundData'](round2);
+        round2.matches.forEach(match => {
+            if (match.player2 && match.player2.name === AUTO_WIN) {
+                result.push(true);
+            }
+        });
+        expect(result.length).toBe(1);
     })
 
     it('Next step -- figure out how to handle odd number rounds while adding win handling.', () => {
