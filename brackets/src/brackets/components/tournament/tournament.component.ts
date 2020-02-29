@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TournamentDataService, iTournamentData } from '../../services/tournamentDataService';
+import { TournamentDataService, iTournament } from '../../services/tournamentDataService/tournamentDataService';
 
 @Component({
   selector: 'brackets-tournament',
@@ -7,7 +7,7 @@ import { TournamentDataService, iTournamentData } from '../../services/tournamen
   styleUrls: ['./tournament.component.scss']
 })
 export class TournamentComponent implements OnInit {
-  public dataSet: iTournamentData;
+  public dataSet: iTournament;
   
   constructor(private dataService: TournamentDataService) {
 

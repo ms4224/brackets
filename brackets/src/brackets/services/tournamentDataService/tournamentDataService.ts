@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AUTO_WIN } from '../keywords';
+import { AUTO_WIN } from '../../keywords';
 
 @Injectable({
     providedIn: 'root',

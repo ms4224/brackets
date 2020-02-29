@@ -1,6 +1,6 @@
 import { TournamentDataService, iContestants, iTournamentRoundData, iMatch } from "./tournamentDataService"
-import { createContestantDataFromStringList } from './tournamentTestHelpers'
-import { AUTO_WIN } from '../keywords';
+import { createContestantDataFromStringList, oneMatchHasAutoWin, noMatchHasAutoWin } from './tournamentTestHelpers'
+import { AUTO_WIN } from '../../keywords';
 
 describe('tournamentDataService', () => {
     const fakeContestantSetEven: iContestants = createContestantDataFromStringList([
@@ -21,6 +21,14 @@ describe('tournamentDataService', () => {
         'mario',
         'bowser',
         'peach',
+    ]);
+    const fakeContestantSet6: iContestants = createContestantDataFromStringList([
+        'john',
+        'jill',
+        'bill',
+        'noob',
+        'mario',
+        'bowser'
     ]);
     const odd1stRoundData: iTournamentRoundData = {
         matches: [
@@ -46,7 +54,8 @@ describe('tournamentDataService', () => {
             },
         ],
         nextRound: undefined,
-        previousRound: undefined
+        previousRound: undefined,
+        numContestants: 7
     }
     const even1stRoundData: iTournamentRoundData = {
         matches: [
@@ -72,7 +81,8 @@ describe('tournamentDataService', () => {
             },
         ],
         nextRound: undefined,
-        previousRound: undefined
+        previousRound: undefined,
+        numContestants: 8
     }
     const tourneyService = new TournamentDataService();
 
@@ -114,6 +124,17 @@ describe('tournamentDataService', () => {
         expect(round3.nextRound).toBeUndefined();
     })
 
+    it('createTournamentData will set auto wins randomly for subsequent tournament rounds if there are odd number of fighters', () => {
+        const tournament = tourneyService['createTournamentData'](fakeContestantSet6);
+        expect(tournament.length).toBe(3);
+        //check auto win is created on second round brackets
+        const round2 = tournament[1];
+        expect(oneMatchHasAutoWin(round2)).toBe(true);
+        //sanity check
+        expect(noMatchHasAutoWin(tournament[2]));
+        expect(noMatchHasAutoWin(tournament[0]));
+    })
+
     it('setWinner takes a match object and a winner and sets the winner', () => {
         const testMatch: iMatch = {
             player1: {name: 'sub-zero'},
@@ -129,12 +150,7 @@ describe('tournamentDataService', () => {
         const round2 = tournament[1];
         let result = [];
         tourneyService['setRandomAutoWinForRoundData'](round2);
-        round2.matches.forEach(match => {
-            if (match.player2 && match.player2.name === AUTO_WIN) {
-                result.push(true);
-            }
-        });
-        expect(result.length).toBe(1);
+        expect(oneMatchHasAutoWin(round2)).toBe(true);
     })
 
     it('Next step -- figure out how to handle odd number rounds while adding win handling.', () => {
