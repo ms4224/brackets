@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AUTO_WIN } from '../../keywords';
+import * as _ from 'lodash';
 
 @Injectable({
     providedIn: 'root',
@@ -84,9 +85,54 @@ export class TournamentDataService {
         }
     }
 
-    public setWinner(match: iMatch, playerData: iPlayerData) {
+    public setWinner(match: iMatch, playerData: iPlayerData, currentRound: iTournamentRoundData) {
         match.winner = playerData;
         //to do: not important now, but should throw error if playerData is not one of the two players of the match
+        this.moveWinnerToNextRound(match.winner, currentRound);
+    }
+
+    private moveWinnerToNextRound(winner: iPlayerData, currentRound: iTournamentRoundData) {
+        if (currentRound.nextRound) {
+            const matchIndex = this.getFighterMatchIndex(winner, currentRound);
+            if (matchIndex !== undefined) {
+                const nextRound = currentRound.nextRound;
+                // 0.5 is match 0, player 2; 1 is match 1, player1; 1.5 is match1, player2; etc...
+                let nextRoundPosition = matchIndex/2;
+                const autoWinPosition = this.findAutoWinPosition(nextRound)
+                if (!_.isUndefined(autoWinPosition) && nextRoundPosition >= autoWinPosition) {
+                    //adjust position by 0.5 if there is an autowin in this bracket
+                    nextRoundPosition += 0.5;
+                }
+                if (nextRoundPosition %1 === 0) {
+                    nextRound.matches[nextRoundPosition].player1 = winner;
+                } else {
+                    nextRound.matches[Math.floor(nextRoundPosition)].player2 = winner;
+                }
+            }
+        }
+    }
+
+    private findAutoWinPosition(round: iTournamentRoundData): number {
+        //finds player position of the auto-win for the match
+        //0 is match 0, player1; 0.5 is match0, player2; etc...
+        const matchIndexOfAutoWin = this.getFighterMatchIndex(autoWin, round);
+        if (matchIndexOfAutoWin !== undefined) {
+            return this.getFighterMatchIndex(autoWin, round) + 0.5;
+        } else {
+            return undefined;
+        }
+    }
+
+    private getFighterMatchIndex(targetPlayer: iPlayerData, currentRound: iTournamentRoundData): number {
+        //returns match index of requested player in round.  returns undefined if not found
+        let result: number = undefined;
+        for (let x = 0; x < currentRound.matches.length; x++) {
+            if (_.isEqual(targetPlayer, currentRound.matches[x].player1) || _.isEqual(targetPlayer, currentRound.matches[x].player2)) {
+                result = x;
+                break;
+            }
+        }
+        return result;
     }
 
     private setRandomAutoWinForRoundData(round: iTournamentRoundData) {

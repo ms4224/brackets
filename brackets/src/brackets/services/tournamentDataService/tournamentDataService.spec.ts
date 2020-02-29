@@ -1,5 +1,5 @@
-import { TournamentDataService, iContestants, iTournamentRoundData, iMatch } from "./tournamentDataService"
-import { createContestantDataFromStringList, oneMatchHasAutoWin, noMatchHasAutoWin } from './tournamentTestHelpers'
+import { TournamentDataService, iContestants, iTournamentRoundData, iMatch, autoWin } from "./tournamentDataService"
+import { createContestantDataFromStringList, oneMatchHasAutoWin, noMatchHasAutoWin, createFakeMatchFromString, createPlayer } from './tournamentTestHelpers'
 import { AUTO_WIN } from '../../keywords';
 
 describe('tournamentDataService', () => {
@@ -135,22 +135,118 @@ describe('tournamentDataService', () => {
         expect(noMatchHasAutoWin(tournament[0]));
     })
 
-    it('setWinner takes a match object and a winner and sets the winner', () => {
-        const testMatch: iMatch = {
-            player1: {name: 'sub-zero'},
-            player2: {name: 'scorpion'},
-            winner: undefined
-        };
-        tourneyService.setWinner(testMatch, testMatch.player2);
-        expect(testMatch.winner).toBe(testMatch.player2);
-    })
-
     it('setRandomAutoWinForRoundData randomly sets one match player2 to autowin', () => {
         const tournament = tourneyService['createTournamentData'](fakeContestantSetEven);
         const round2 = tournament[1];
         let result = [];
         tourneyService['setRandomAutoWinForRoundData'](round2);
         expect(oneMatchHasAutoWin(round2)).toBe(true);
+    })
+
+    it('setWinner moves the winner of a match to the correct position in the next bracket', () => {
+        const fakeRoundData: iTournamentRoundData = {
+            previousRound: undefined,
+            matches: [
+                createFakeMatchFromString('sub-zero', 'scorpion'),
+                createFakeMatchFromString('fujin', 'raiden'),
+                createFakeMatchFromString('shinnok', 'liu-kang'),
+                createFakeMatchFromString('reptile', 'cloud'),
+            ],
+            nextRound: undefined,
+            numContestants: 8,
+        };
+        const fakeRound2: iTournamentRoundData = {
+            previousRound: fakeRoundData,
+            matches: [
+                createFakeMatchFromString(undefined, undefined),
+                createFakeMatchFromString(undefined, undefined)
+            ],
+            nextRound: undefined,
+            numContestants: 4,
+        };
+        fakeRoundData.nextRound = fakeRound2;
+        tourneyService.setWinner(fakeRoundData.matches[0], createPlayer('scorpion'), fakeRoundData);
+        tourneyService.setWinner(fakeRoundData.matches[1], createPlayer('fujin'), fakeRoundData);
+        tourneyService.setWinner(fakeRoundData.matches[2], createPlayer('liu-kang'), fakeRoundData);
+        tourneyService.setWinner(fakeRoundData.matches[3], createPlayer('reptile'), fakeRoundData);
+        expect(fakeRoundData.matches[0].winner).toEqual(createPlayer('scorpion'));
+        expect(fakeRoundData.matches[1].winner).toEqual(createPlayer('fujin'));
+        expect(fakeRoundData.matches[2].winner).toEqual(createPlayer('liu-kang'));
+        expect(fakeRoundData.matches[3].winner).toEqual(createPlayer('reptile'));
+        expect(fakeRound2.matches[0].player1).toEqual(createPlayer('scorpion'));
+        expect(fakeRound2.matches[0].player2).toEqual(createPlayer('fujin'));
+        expect(fakeRound2.matches[1].player1).toEqual(createPlayer('liu-kang'));
+        expect(fakeRound2.matches[1].player2).toEqual(createPlayer('reptile'));
+    })
+
+    it('setWinner moves the winner of a match to the correct position in the next bracket, even if there is an autowin in the next bracket', () => {
+        const fakeRoundData: iTournamentRoundData = {
+            previousRound: undefined,
+            matches: [
+                createFakeMatchFromString('sub-zero', 'scorpion'),
+                createFakeMatchFromString('fujin', 'raiden'),
+                createFakeMatchFromString('shinnok', 'liu-kang')
+            ],
+            nextRound: undefined,
+            numContestants: 8,
+        };
+        const fakeRound2: iTournamentRoundData = {
+            previousRound: fakeRoundData,
+            matches: [
+                createFakeMatchFromString(undefined, undefined),
+                createFakeMatchFromString(undefined, undefined)
+            ],
+            nextRound: undefined,
+            numContestants: 4,
+        };
+        //simulate auto-win situation in match 0
+        fakeRound2.matches[0].player2 = autoWin;
+        fakeRoundData.nextRound = fakeRound2;
+        tourneyService.setWinner(fakeRoundData.matches[0], createPlayer('scorpion'), fakeRoundData);
+        tourneyService.setWinner(fakeRoundData.matches[1], createPlayer('fujin'), fakeRoundData);
+        tourneyService.setWinner(fakeRoundData.matches[2], createPlayer('liu-kang'), fakeRoundData);
+        expect(fakeRoundData.matches[0].winner).toEqual(createPlayer('scorpion'));
+        expect(fakeRoundData.matches[1].winner).toEqual(createPlayer('fujin'));
+        expect(fakeRoundData.matches[2].winner).toEqual(createPlayer('liu-kang'));
+        expect(fakeRound2.matches[0].player1).toEqual(createPlayer('scorpion'));
+        expect(fakeRound2.matches[0].player2).toEqual(autoWin);
+        expect(fakeRound2.matches[1].player1).toEqual(createPlayer('fujin'));
+        expect(fakeRound2.matches[1].player2).toEqual(createPlayer('liu-kang'));
+    })
+
+    it('setWinner moves the winner of a match to the correct position in the next bracket, even if there is an autowin in the next bracket, testing different position', () => {
+        const fakeRoundData: iTournamentRoundData = {
+            previousRound: undefined,
+            matches: [
+                createFakeMatchFromString('sub-zero', 'scorpion'),
+                createFakeMatchFromString('fujin', 'raiden'),
+                createFakeMatchFromString('shinnok', 'liu-kang')
+            ],
+            nextRound: undefined,
+            numContestants: 8,
+        };
+        const fakeRound2: iTournamentRoundData = {
+            previousRound: fakeRoundData,
+            matches: [
+                createFakeMatchFromString(undefined, undefined),
+                createFakeMatchFromString(undefined, undefined)
+            ],
+            nextRound: undefined,
+            numContestants: 4,
+        };
+        //simulate auto-win situation in match 0
+        fakeRound2.matches[1].player2 = autoWin;
+        fakeRoundData.nextRound = fakeRound2;
+        tourneyService.setWinner(fakeRoundData.matches[0], createPlayer('scorpion'), fakeRoundData);
+        tourneyService.setWinner(fakeRoundData.matches[1], createPlayer('fujin'), fakeRoundData);
+        tourneyService.setWinner(fakeRoundData.matches[2], createPlayer('liu-kang'), fakeRoundData);
+        expect(fakeRoundData.matches[0].winner).toEqual(createPlayer('scorpion'));
+        expect(fakeRoundData.matches[1].winner).toEqual(createPlayer('fujin'));
+        expect(fakeRoundData.matches[2].winner).toEqual(createPlayer('liu-kang'));
+        expect(fakeRound2.matches[0].player1).toEqual(createPlayer('scorpion'));
+        expect(fakeRound2.matches[0].player2).toEqual(createPlayer('fujin'));
+        expect(fakeRound2.matches[1].player1).toEqual(createPlayer('liu-kang'));
+        expect(fakeRound2.matches[1].player2).toEqual(autoWin);
     })
 
     it('Next step -- figure out how to handle odd number rounds while adding win handling.', () => {
