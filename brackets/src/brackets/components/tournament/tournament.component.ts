@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TournamentDataService, iTournament } from '../../services/tournamentDataService/tournamentDataService';
+import { createContestantDataFromStringList } from 'src/brackets/services/tournamentDataService/tournamentTestHelpers';
 
 @Component({
   selector: 'brackets-tournament',
@@ -7,14 +8,16 @@ import { TournamentDataService, iTournament } from '../../services/tournamentDat
   styleUrls: ['./tournament.component.scss']
 })
 export class TournamentComponent implements OnInit {
-  public dataSet: iTournament;
+  public tournament: iTournament;
   
   constructor(private dataService: TournamentDataService) {
 
   }
 
   ngOnInit() {
-    this.dataSet = this.dataService.getData();
+    //for testing
+    const fakeContestants = ['mario', 'yoshi', 'link', 'DK', 'CFalcon', 'kirby', 'fox', 'pikachu']
+    this.tournament = this.dataService['createTournamentData'](createContestantDataFromStringList(fakeContestants));
   }
   
 }

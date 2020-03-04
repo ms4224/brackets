@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { iPlayerData } from 'src/brackets/services/tournamentDataService/tournamentDataService';
 
 @Component({
   selector: 'brackets-fighter',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./fighter.component.scss']
 })
 export class FighterComponent {
-  start = true;
+  @Input() player: iPlayerData;
 }

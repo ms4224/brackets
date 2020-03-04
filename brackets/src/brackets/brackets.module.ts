@@ -10,6 +10,7 @@ import { TournamentDataService } from './services/tournamentDataService/tourname
     FighterComponent
   ],
   imports: [
+    BrowserModule
   ],
   providers: [TournamentDataService],
   bootstrap: [],

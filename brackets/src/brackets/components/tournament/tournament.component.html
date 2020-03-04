@@ -1,5 +1,12 @@
 <div class="frame-container">
-  <div class="contestant-column">
-    
+  <div class="bracket" *ngFor="let bracket of tournament; let roundIndex = index;">
+    round: {{roundIndex}}
+    <div class="match" *ngFor="let match of bracket.matches; let matchIndex = index;">
+      Match Number: {{matchIndex}}
+      <brackets-fighter *ngIf="match.player1" [player]="match.player1"></brackets-fighter>
+      <div *ngIf="!match.player1">PlaceHolder Undefined Player</div>
+      <brackets-fighter *ngIf="match.player2" [player]="match.player2"></brackets-fighter>
+      <div *ngIf="!match.player2">PlaceHolder Undefined Player</div>
+    </div>
   </div>
 </div>

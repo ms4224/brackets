@@ -1,4 +1,10 @@
+
 .frame-container {
-    overflow-x: scroll;
-    overflow-y: scroll;
+    // set up infinite width of tournament
+    height: 100%;
+    width: 100%;
+    overflow:auto;
+    overflow-y: hidden;
+    white-space:nowrap;
+    display: inline-flex;
 }
