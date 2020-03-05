@@ -1,4 +1,5 @@
 <div class="frame-container">
+  <brackets-tournament-canvas></brackets-tournament-canvas>
   <div class="bracket" *ngFor="let bracket of tournament; let roundIndex = index;">
     round: {{roundIndex}}
     <div class="match" *ngFor="let match of bracket.matches; let matchIndex = index;">

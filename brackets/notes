@@ -1,8 +1,14 @@
-2/29/2020
--made setwinner function correctly place the winner in the next bracket position (handles case of auto-win being present in next bracket as well)
+3/4/2020
+-made rudimentary view, and got css to make columns
 
 NEXT STEPS:
-1. hmmm....start making basic front end view?  what functionality is missing
+1. have css line up logically next round in bracket with previous, etc....how to do this? this is an idea:
+    make a canvas element with absolute positioning, have it take up the entire width of the tournament container.  set z index to -1.
+    draw lines using canvas element https://www.w3schools.com/tags/ref_canvas.asp in the back based on points of cards and shit...
+    maybe need to make a directive for this?  need to be careful about how to do it RIGHT, give it some thought.
+    canvas vs svg: sounds like svg might be simpler...https://teropa.info/blog/2016/12/12/graphics-in-angular-2.html, however, it seems 
+    a bit hacky with angular apps. canvas is safer and removed.  for this, it might be the way to go.
+    STARTED CREATING CANVAS COMPONENT.  this needs to somehow connect to existing tournament object to draw the lines...think this out.
 2. consider ngrx for the tournament (not needed yet, but will need when dealing with component).
 
 IDEA:

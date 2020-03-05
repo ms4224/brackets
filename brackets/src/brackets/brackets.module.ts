@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 import { TournamentComponent } from './components/tournament/tournament.component';
 import { FighterComponent } from './components/fighter/fighter.component';
 import { TournamentDataService } from './services/tournamentDataService/tournamentDataService';
+import { TournamentCanvasComponent } from './components/tournament-canvas/tournament-canvas.component';
 
 @NgModule({
   declarations: [
     TournamentComponent,
-    FighterComponent
+    FighterComponent,
+    TournamentCanvasComponent
   ],
   imports: [
     BrowserModule
