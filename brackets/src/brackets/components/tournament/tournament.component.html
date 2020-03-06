@@ -1,7 +1,6 @@
-<div class="frame-container">
+<div class="frame-container" id="frame-container" #frameContainer>
   <brackets-tournament-canvas></brackets-tournament-canvas>
   <div class="bracket" *ngFor="let bracket of tournament; let roundIndex = index;">
-    round: {{roundIndex}}
     <div class="match" *ngFor="let match of bracket.matches; let matchIndex = index;">
       Match Number: {{matchIndex}}
       <brackets-fighter *ngIf="match.player1" [player]="match.player1"></brackets-fighter>

@@ -1,4 +1,6 @@
 
 <div class="tournament-canvas-container">
-  <canvas class="tournament-canvas"></canvas>>
+  <canvas class="tournament-canvas" #tournamentCanvas
+  [style.width]="containerElement.scrollWidth + 'px'"
+  [style.height]="containerElement.scrollHeight + 'px'"></canvas>
 </div>

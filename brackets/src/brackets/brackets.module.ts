@@ -4,6 +4,7 @@ import { TournamentComponent } from './components/tournament/tournament.componen
 import { FighterComponent } from './components/fighter/fighter.component';
 import { TournamentDataService } from './services/tournamentDataService/tournamentDataService';
 import { TournamentCanvasComponent } from './components/tournament-canvas/tournament-canvas.component';
+import { CanvasDrawingService } from './services/canvasDrawing/canvas-drawing.service';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { TournamentCanvasComponent } from './components/tournament-canvas/tourna
   imports: [
     BrowserModule
   ],
-  providers: [TournamentDataService],
+  providers: [TournamentDataService, CanvasDrawingService],
   bootstrap: [],
   exports: [TournamentComponent],
   entryComponents: [TournamentComponent]
