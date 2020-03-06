@@ -9,6 +9,7 @@ NEXT STEPS:
     TODO: A. Write canvas drawing service (at least to register a match by bracket index, match index, and start and end point);
           B. Make directive that finds the coordinates of start and end for a match
           C. At some point draw lines between all the connecting points.
+    ###I AM ON C!! need to think of a way to either erase the canvas and redraw everytime, or only draw once all matches have registered into drawing service.
 2. consider ngrx for the tournament (not needed yet, but will need when dealing with component).
 
 IDEA:

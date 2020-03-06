@@ -5,12 +5,14 @@ import { FighterComponent } from './components/fighter/fighter.component';
 import { TournamentDataService } from './services/tournamentDataService/tournamentDataService';
 import { TournamentCanvasComponent } from './components/tournament-canvas/tournament-canvas.component';
 import { CanvasDrawingService } from './services/canvasDrawing/canvas-drawing.service';
+import { MatchConnectionDrawDirective } from './directives/match-connection-draw.directive';
 
 @NgModule({
   declarations: [
     TournamentComponent,
     FighterComponent,
-    TournamentCanvasComponent
+    TournamentCanvasComponent,
+    MatchConnectionDrawDirective
   ],
   imports: [
     BrowserModule

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { CanvasDrawingService } from 'src/brackets/services/canvasDrawing/canvas-drawing.service';
 
 @Component({
   selector: 'brackets-tournament-canvas',
@@ -8,24 +9,20 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 export class TournamentCanvasComponent implements OnInit, AfterViewInit {
   @ViewChild('tournamentCanvas') canvasElement: ElementRef;
   public containerElement: any;
+  private context: any;
 
-  constructor(private thisElement: ElementRef) { }
+  constructor(private thisElement: ElementRef, private canvasDraw: CanvasDrawingService) { }
 
   ngOnInit() {
     this.containerElement = this.thisElement.nativeElement.parentElement;
+    this.context = this.canvasElement.nativeElement.getContext('2d');
   }
 
   ngAfterViewInit() {
-    var context = this.canvasElement.nativeElement.getContext('2d');
-    drawLine(context, 50, 50, 150, 50);
-    drawLine(context, 50, 100, 650, 100);
+    //need to continue here. How can we draw at the right time?
+    setTimeout(()=> {
+      this.canvasDraw.drawAllConnections(this.context);
+    }, 4000);
   }
 
-}
-
-function drawLine(context, x1: number, y1: number, x2: number, y2: number) {
-  context.beginPath();
-  context.moveTo(x1, y1);
-  context.lineTo(x2, y2);
-  context.stroke();
 }

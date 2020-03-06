@@ -24,6 +24,23 @@ export class CanvasDrawingService {
     //
     targetMatchArray[matchConn.matchIndex] = matchConn;
   }
+
+  public drawAllConnections(context) {
+    for (let bI = 0; bI < this.connectionGrid.length - 1; bI++) {
+      for (let mI = 0; mI < this.connectionGrid[bI].length; mI ++) {
+        const lineStart = this.connectionGrid[bI][mI].back;
+        const lineEnd = this.connectionGrid[bI + 1][Math.floor(mI/2)].front;
+        this.drawLine(context, lineStart.x, lineStart.y, lineEnd.x, lineEnd.y);
+      }
+    }
+  }
+
+  private drawLine(context, x1: number, y1: number, x2: number, y2: number) {
+    context.beginPath();
+    context.moveTo(x1, y1);
+    context.lineTo(x2, y2);
+    context.stroke();
+  }
 }
 
 export interface iMatchConnection {
