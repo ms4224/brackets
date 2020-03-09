@@ -2,18 +2,14 @@
 -made rudimentary view, and got css to make columns
 
 NEXT STEPS:
-1. Right now have a canvas element positioned behind the tournament element. can draw lines to points.
-    idea1: have a canvasDrawingService. each match element has a directive on it that gets its start point and end point and registers it
-    into the service, along with its match id (bracket index, and match index);
-    Connections are simple.  Auto wins are setup to always have it so that for example 0,1 of previous round go to 0 of next round, etc.
-    TODO: A. Write canvas drawing service (at least to register a match by bracket index, match index, and start and end point);
-          B. Make directive that finds the coordinates of start and end for a match
-          C. At some point draw lines between all the connecting points.
-    ###I AM ON C!! need to think of a way to either erase the canvas and redraw everytime, or only draw once all matches have registered into drawing service.
+1. STyling was buggy, gonna have to stick to robotronic layout or sac the lines.  next steps?
 2. consider ngrx for the tournament (not needed yet, but will need when dealing with component).
 
 IDEA:
 1. how to handle same tournament service handling team tournaments, etc? - in the tournament object, matches have "fighters"
 a. these fighters could be different types or "cards"/fighterData.  there could be a team one, a 3v3 one, etc.
+
+Links:
+color palette: https://colorhunt.co/palettes/dark
 
 

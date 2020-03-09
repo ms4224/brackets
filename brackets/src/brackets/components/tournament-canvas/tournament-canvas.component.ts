@@ -16,13 +16,11 @@ export class TournamentCanvasComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.containerElement = this.thisElement.nativeElement.parentElement;
     this.context = this.canvasElement.nativeElement.getContext('2d');
+    this.canvasDraw.registerCanvas(this.context);
   }
 
   ngAfterViewInit() {
-    //need to continue here. How can we draw at the right time?
-    setTimeout(()=> {
-      this.canvasDraw.drawAllConnections(this.context);
-    }, 4000);
+      this.canvasDraw.drawAllConnections();
   }
 
 }

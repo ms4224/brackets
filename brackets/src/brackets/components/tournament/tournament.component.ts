@@ -16,7 +16,7 @@ export class TournamentComponent implements OnInit {
 
   ngOnInit() {
     //for testing
-    const fakeContestants = ['mario', 'yoshi', 'link', 'DK', 'CFalcon', 'kirby', 'fox', 'pikachu', 'Ness']
+    const fakeContestants = ['mario', 'yoshi', 'link', 'DK', 'CFalcon', 'kirby', 'fox', 'pikachu', 'Ness', 'jiggly', 'luigi', 'bowser', 'peach', 'isaac', 'diddykong']
     this.tournament = this.dataService['createTournamentData'](createContestantDataFromStringList(fakeContestants));
   }
   
