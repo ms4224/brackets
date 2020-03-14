@@ -13,9 +13,13 @@
     .bracket {
         margin-top: 20px;
         margin-right: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
         .match {
             margin-bottom: 10px;
+            flex-grow: 1;
         }
     }
 }

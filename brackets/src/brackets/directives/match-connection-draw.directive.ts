@@ -22,6 +22,6 @@ export class MatchConnectionDrawDirective implements AfterViewInit {
       },
       bracketIndex: this.bracketIndex,
       matchIndex: this.matchIndex
-    })
+    });
   }
 }

@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class CanvasDrawingService {
   private connectionGrid: Array<Array<iMatchConnection>> = [];
+  public lineConnectionSet: Array<iLine> = [];
   private canvas: any;
 
   constructor() { }
@@ -28,6 +29,18 @@ export class CanvasDrawingService {
     }
     //
     targetMatchArray[matchConn.matchIndex] = matchConn;
+  }
+
+  public drawAllConnectionsSVG() {
+      const newLineSet: Array<iLine> = [];
+      for (let bI = 0; bI < this.connectionGrid.length - 1; bI++) {
+        for (let mI = 0; mI < this.connectionGrid[bI].length; mI ++) {
+          const lineStart = this.connectionGrid[bI][mI].back;
+          const lineEnd = this.connectionGrid[bI + 1][Math.floor(mI/2)].front;
+          newLineSet.push({x1: lineStart.x, y1: lineStart.y, x2: lineEnd.x, y2: lineEnd.y})
+        }
+      }
+      this.lineConnectionSet = newLineSet;
   }
 
   public drawAllConnections() {
@@ -62,4 +75,11 @@ export interface iMatchConnection {
 export interface iCoordinate {
   x: number;
   y: number;
+}
+
+export interface iLine {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
 }

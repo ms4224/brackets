@@ -1,0 +1,13 @@
+.match-card-container {
+    height: 100%;
+    display: flex;
+    align-content: center;
+
+    .match-content {
+        position: relative;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        height: 60px;
+    }
+}
