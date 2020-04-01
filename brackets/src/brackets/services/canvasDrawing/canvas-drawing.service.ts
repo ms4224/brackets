@@ -35,9 +35,13 @@ export class CanvasDrawingService {
       const newLineSet: Array<iLine> = [];
       for (let bI = 0; bI < this.connectionGrid.length - 1; bI++) {
         for (let mI = 0; mI < this.connectionGrid[bI].length; mI ++) {
-          const lineStart = this.connectionGrid[bI][mI].back;
-          const lineEnd = this.connectionGrid[bI + 1][Math.floor(mI/2)].front;
-          newLineSet.push({x1: lineStart.x, y1: lineStart.y, x2: lineEnd.x, y2: lineEnd.y})
+          const startCoordinates = this.connectionGrid[bI][mI].back;
+          const endCoordinates = this.connectionGrid[bI + 1][Math.floor(mI/2)].front;
+          const xMidpoint = startCoordinates.x + ((endCoordinates.x - startCoordinates.x)/2);
+          const line1 = {x1: startCoordinates.x, y1: startCoordinates.y, x2: xMidpoint, y2: startCoordinates.y};
+          const line2 = {x1: xMidpoint, y1: startCoordinates.y, x2: xMidpoint, y2: endCoordinates.y};
+          const line3 = {x1: xMidpoint, y1: endCoordinates.y, x2: endCoordinates.x, y2: endCoordinates.y};
+          newLineSet.push(line1, line2, line3);
         }
       }
       this.lineConnectionSet = newLineSet;

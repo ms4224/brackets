@@ -5,12 +5,11 @@
 4/1 - 
 - fixed bug where scrolling the tournament canvas left out lines and black background
 - fixed bug, can now center matches
+-Made squary lines
+
 
 NEXT STEPS:
-0. FIX BUGS FROM ABOVE!!
-1. With svgs and flex stuff, finally got a stable css rendering. lines are connecting to center
-next: make lines squary (right now they go direct)
-OR: make nice card views
+1. auto add winners via tournament view...or edit mode? hmmmm
 2. consider ngrx for the tournament (not needed yet, but will need when dealing with component).
 
 IDEA:
