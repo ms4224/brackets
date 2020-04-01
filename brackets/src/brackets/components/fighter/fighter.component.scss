@@ -4,7 +4,7 @@
     border: 1px solid #37687f;
     border-radius: 2px;
     width: 90%;
-    height: 36px;
+    height: 36px; //this + margin top + margin bottom needs to be HALF the size height of .match-card-container in match.component.scss
     line-height: 36px;
     font-size: 14px;
     margin: auto;

@@ -1,17 +1,12 @@
 .match-card-container {
-    height: 100px;
+    height: 88px; //this needs to be DOUBLE the size height of .card-frame height+margintop+marginbottom in fighter.component.scss
     width: 184px;
     display: flex;
     align-content: center;
-    // background-color: #303030;
-    // border: 1px solid #375a7f;
     border-radius: 2px;
 
     .match-content {
         position: relative;
-        // top: 50%;
-        // -ms-transform: translateY(-50%);
-        // transform: translateY(-50%);
         height: 100%;
         width: 100%;
         margin: auto;

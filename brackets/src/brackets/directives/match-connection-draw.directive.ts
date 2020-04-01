@@ -14,11 +14,11 @@ export class MatchConnectionDrawDirective implements AfterViewInit {
     this.canvasDrawing.registerMatchConnection({
       front: {
         x: this.thisEl.nativeElement.offsetLeft,
-        y: this.thisEl.nativeElement.offsetTop
+        y: this.thisEl.nativeElement.offsetTop + this.thisEl.nativeElement.clientHeight/2
       },
       back: {
         x: this.thisEl.nativeElement.offsetLeft + this.thisEl.nativeElement.clientWidth,
-        y: this.thisEl.nativeElement.offsetTop
+        y: this.thisEl.nativeElement.offsetTop + this.thisEl.nativeElement.clientHeight/2
       },
       bracketIndex: this.bracketIndex,
       matchIndex: this.matchIndex
