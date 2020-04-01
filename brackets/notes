@@ -4,7 +4,7 @@
 -have a nice css, but now have to BUGS: 1. no scroll on tournament canvas 2.dont have matches centering (this is a problem for the final...)
 4/1 - 
 - fixed bug where scrolling the tournament canvas left out lines and black background
-- STILL NEED TO FIX to be able to center the stuff..
+- fixed bug, can now center matches
 
 NEXT STEPS:
 0. FIX BUGS FROM ABOVE!!
