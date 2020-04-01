@@ -1,5 +1,5 @@
 <div class="tournament-canvas-container">
-    <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" class="svg-lines">
+    <svg [attr.width]="containerElement.scrollWidth" [attr.height]="containerElement.scrollHeight" version="1.1" xmlns="http://www.w3.org/2000/svg" class="svg-lines">
        <line *ngFor="let line of drawCanvas.lineConnectionSet; let i = index" [attr.id]="'line' + i" [attr.x1]="line.x1" [attr.y1]="line.y1" [attr.x2]="line.x2" [attr.y2]="line.y2" stroke="red" />
     </svg>
 </div>

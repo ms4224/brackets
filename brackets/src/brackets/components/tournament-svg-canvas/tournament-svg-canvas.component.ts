@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { CanvasDrawingService, iLine } from 'src/brackets/services/canvasDrawing/canvas-drawing.service';
 
 @Component({
@@ -7,10 +7,13 @@ import { CanvasDrawingService, iLine } from 'src/brackets/services/canvasDrawing
   styleUrls: ['./tournament-svg-canvas.component.scss']
 })
 export class TournamentSvgCanvasComponent implements OnInit, AfterViewInit {
+  @ViewChild('tournamentCanvas') canvasElement: ElementRef;
+  public containerElement: any;
 
-  constructor(public drawCanvas: CanvasDrawingService, private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private thisElement: ElementRef, public drawCanvas: CanvasDrawingService, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.containerElement = this.thisElement.nativeElement.parentElement;
   }
 
   ngAfterViewInit() {
