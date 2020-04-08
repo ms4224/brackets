@@ -1,9 +1,9 @@
 <div class="match-card-container" matchConnectionDraw [bracketIndex]="bracketIndex" [matchIndex]="matchIndex" >
   <div class="match-content">
     <!-- Match Number: {{matchIndex}} -->
-    <brackets-fighter *ngIf="match.player1" [player]="match.player1"></brackets-fighter>
+    <brackets-fighter *ngIf="match.player1" [player]="match.player1" (fighterClicked)="handleFighterClicked($event)"></brackets-fighter>
     <brackets-fighter *ngIf="!match.player1"></brackets-fighter>
-    <brackets-fighter *ngIf="match.player2" [player]="match.player2"></brackets-fighter>
+    <brackets-fighter *ngIf="match.player2" [player]="match.player2" (fighterClicked)="handleFighterClicked($event)"></brackets-fighter>
     <brackets-fighter *ngIf="!match.player2"></brackets-fighter>
   </div>
 </div>

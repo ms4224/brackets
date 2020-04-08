@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { iMatch } from 'src/brackets/services/tournamentDataService/tournamentDataService';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { iMatch, TournamentDataService, iPlayerData, iTournamentRoundData } from 'src/brackets/services/tournamentDataService/tournamentDataService';
 
 @Component({
   selector: 'brackets-match',
@@ -9,10 +9,17 @@ import { iMatch } from 'src/brackets/services/tournamentDataService/tournamentDa
 export class MatchComponent implements OnInit {
   @Input() match: iMatch;
   @Input() matchIndex: number;
+  @Input() bracket: iTournamentRoundData;
   @Input() bracketIndex: number;
-  constructor() { }
+  constructor(private tourneyDataService: TournamentDataService) { }
 
   ngOnInit() {
+  }
+
+  public handleFighterClicked(event: iPlayerData) {
+    if (event.name) {
+      this.tourneyDataService.setWinner(this.match, event, this.bracket)
+    }
   }
 
 }

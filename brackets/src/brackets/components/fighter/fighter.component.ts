@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { iPlayerData } from 'src/brackets/services/tournamentDataService/tournamentDataService';
 
 @Component({
@@ -8,4 +8,9 @@ import { iPlayerData } from 'src/brackets/services/tournamentDataService/tournam
 })
 export class FighterComponent {
   @Input() player: iPlayerData;
+  @Output() fighterClicked: EventEmitter<iPlayerData> = new EventEmitter<iPlayerData>();
+
+  public handleFighterClicked() {
+    this.fighterClicked.emit(this.player);
+  }
 }

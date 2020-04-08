@@ -3,7 +3,7 @@
   <div class="bracket" *ngFor="let bracket of tournament; let bracketIndex = index;">
     <div class="match"
       *ngFor="let match of bracket.matches; let matchIndex = index;">
-      <brackets-match [matchIndex]="matchIndex" [match]="match" [bracketIndex]="bracketIndex"></brackets-match>
+      <brackets-match [matchIndex]="matchIndex" [match]="match" [bracket]="bracket" [bracketIndex]="bracketIndex"></brackets-match>
     </div>
   </div>
 </div>
