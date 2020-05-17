@@ -8,11 +8,12 @@
 -Made squary lines
 4/5
 -quickly added if u click on fighter, it will move them to next round. NEED TO FIX BUG!!! the lines are messed up?
+5/16- fixed bug so now connection lines line up correctly with auto wins.  NEED TO FIX TESTS!!!
+5/17- Fixed tests and removed files and code for old canvas drawing (using svg now)
 
 
 NEXT STEPS:
-0.BUG!!!! Scroll to bottom of bracket, whoever starts there autowins....
-0.1 the bug is that the lines arent following the rules, go to a spot with autowin and u will see
+0.Fix unit tests!!!!
 1. menu for adding winner? right now set to 1 click
 2. consider ngrx for the tournament (not needed yet, but will need when dealing with component).
 

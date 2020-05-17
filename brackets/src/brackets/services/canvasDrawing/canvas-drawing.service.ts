@@ -6,15 +6,9 @@ import * as _ from 'lodash';
   providedIn: 'root'
 })
 export class CanvasDrawingService {
-  private connectionGrid: Array<Array<iMatchConnection>> = [];
   public lineConnectionSet: Array<iLine> = [];
-  private canvas: any;
 
   constructor(private tournamentDataService: TournamentDataService) { }
-
-  public registerCanvas(canvas: any) {
-    this.canvas = canvas;
-  }
 
   public registerMatchConnection(matchConn: iMatchConnection, tournamentData: iTournament) {
     tournamentData[matchConn.bracketIndex].matches[matchConn.matchIndex].connectionData = matchConn;
@@ -25,7 +19,7 @@ export class CanvasDrawingService {
       for (let bI = 0; bI < tournament.length - 1; bI++) {
         for (let mI = 0; mI < tournament[bI].matches.length; mI ++) {
           const startCoordinates = tournament[bI].matches[mI].connectionData.back;
-          const endCoordinates = tournament[bI + 1].matches[this.fineNextMatchIndex(mI, tournament[bI])].connectionData.front;
+          const endCoordinates = tournament[bI + 1].matches[this.findNextMatchIndex(mI, tournament[bI])].connectionData.front;
           const xMidpoint = startCoordinates.x + ((endCoordinates.x - startCoordinates.x)/2);
           const line1 = {x1: startCoordinates.x, y1: startCoordinates.y, x2: xMidpoint, y2: startCoordinates.y};
           const line2 = {x1: xMidpoint, y1: startCoordinates.y, x2: xMidpoint, y2: endCoordinates.y};
@@ -36,7 +30,7 @@ export class CanvasDrawingService {
       this.lineConnectionSet = newLineSet;
   }
 
-  private fineNextMatchIndex(matchIndex: number, currentRound: iTournamentRoundData): number {
+  private findNextMatchIndex(matchIndex: number, currentRound: iTournamentRoundData): number {
     //Thi slogic is largely copied from upgrade winner logic in tournament dataservice file
     //just used to find the right connecting match because of auto win logic
       if (currentRound.nextRound) {
@@ -52,27 +46,6 @@ export class CanvasDrawingService {
               return Math.floor(nextRoundPosition);
           }
       }
-  }
-
-  public drawAllConnections() {
-    if (this.canvas) {
-      this.canvas.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      for (let bI = 0; bI < this.connectionGrid.length - 1; bI++) {
-        for (let mI = 0; mI < this.connectionGrid[bI].length; mI ++) {
-          const lineStart = this.connectionGrid[bI][mI].back;
-          const lineEnd = this.connectionGrid[bI + 1][Math.floor(mI/2)].front;
-          this.drawLine(this.canvas, lineStart.x, lineStart.y, lineEnd.x, lineEnd.y);
-        }
-      }
-    }
-  }
-
-  private drawLine(context, x1: number, y1: number, x2: number, y2: number) {
-    context.strokeStyle = 'white';
-    context.beginPath();
-    context.moveTo(x1, y1);
-    context.lineTo(x2, y2);
-    context.stroke();
   }
 }
 
