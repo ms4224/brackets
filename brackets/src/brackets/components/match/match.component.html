@@ -1,4 +1,4 @@
-<div class="match-card-container" matchConnectionDraw [bracketIndex]="bracketIndex" [matchIndex]="matchIndex" >
+<div class="match-card-container" matchConnectionDraw [bracketIndex]="bracketIndex" [matchIndex]="matchIndex" [tournament]="tournament" >
   <div class="match-content">
     <!-- Match Number: {{matchIndex}} -->
     <brackets-fighter *ngIf="match.player1" [player]="match.player1" (fighterClicked)="handleFighterClicked($event)"></brackets-fighter>

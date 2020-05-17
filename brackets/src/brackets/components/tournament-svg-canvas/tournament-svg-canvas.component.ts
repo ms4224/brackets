@@ -1,5 +1,6 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef, Input } from '@angular/core';
 import { CanvasDrawingService, iLine } from 'src/brackets/services/canvasDrawing/canvas-drawing.service';
+import { iTournament } from 'src/brackets/services/tournamentDataService/tournamentDataService';
 
 @Component({
   selector: 'brackets-tournament-svg-canvas',
@@ -9,6 +10,7 @@ import { CanvasDrawingService, iLine } from 'src/brackets/services/canvasDrawing
 export class TournamentSvgCanvasComponent implements OnInit, AfterViewInit {
   @ViewChild('tournamentCanvas') canvasElement: ElementRef;
   public containerElement: any;
+  @Input() tournament: iTournament; 
 
   constructor(private thisElement: ElementRef, public drawCanvas: CanvasDrawingService, private changeDetectorRef: ChangeDetectorRef) { }
 
@@ -17,7 +19,7 @@ export class TournamentSvgCanvasComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.drawCanvas.drawAllConnectionsSVG();
+    this.drawCanvas.drawAllConnectionsSVG(this.tournament);
     this.changeDetectorRef.detectChanges();
   }
 

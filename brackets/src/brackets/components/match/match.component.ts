@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { iMatch, TournamentDataService, iPlayerData, iTournamentRoundData } from 'src/brackets/services/tournamentDataService/tournamentDataService';
+import { iMatch, TournamentDataService, iPlayerData, iTournamentRoundData, iTournament } from 'src/brackets/services/tournamentDataService/tournamentDataService';
 
 @Component({
   selector: 'brackets-match',
@@ -11,6 +11,7 @@ export class MatchComponent implements OnInit {
   @Input() matchIndex: number;
   @Input() bracket: iTournamentRoundData;
   @Input() bracketIndex: number;
+  @Input() tournament: iTournament;
   constructor(private tourneyDataService: TournamentDataService) { }
 
   ngOnInit() {

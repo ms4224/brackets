@@ -1,5 +1,6 @@
 import { Directive, ElementRef, OnInit, Input, AfterViewInit } from '@angular/core';
 import { CanvasDrawingService } from '../services/canvasDrawing/canvas-drawing.service';
+import { iTournament } from '../services/tournamentDataService/tournamentDataService';
 
 @Directive({
   selector: '[matchConnectionDraw]'
@@ -7,6 +8,7 @@ import { CanvasDrawingService } from '../services/canvasDrawing/canvas-drawing.s
 export class MatchConnectionDrawDirective implements AfterViewInit {
   @Input() bracketIndex: number = 0;
   @Input() matchIndex: number = 0;
+  @Input() tournament: iTournament;
 
   constructor(private thisEl: ElementRef, private canvasDrawing: CanvasDrawingService) { }
 
@@ -22,6 +24,8 @@ export class MatchConnectionDrawDirective implements AfterViewInit {
       },
       bracketIndex: this.bracketIndex,
       matchIndex: this.matchIndex
-    });
+    },
+    this.tournament
+    );
   }
 }

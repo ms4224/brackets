@@ -1,9 +1,9 @@
 <div class="frame-container" id="frame-container" #frameContainer>
-  <brackets-tournament-svg-canvas></brackets-tournament-svg-canvas>
+  <brackets-tournament-svg-canvas [tournament]="tournament"></brackets-tournament-svg-canvas>
   <div class="bracket" *ngFor="let bracket of tournament; let bracketIndex = index;">
     <div class="match"
       *ngFor="let match of bracket.matches; let matchIndex = index;">
-      <brackets-match [matchIndex]="matchIndex" [match]="match" [bracket]="bracket" [bracketIndex]="bracketIndex"></brackets-match>
+      <brackets-match [matchIndex]="matchIndex" [match]="match" [bracket]="bracket" [bracketIndex]="bracketIndex" [tournament]="tournament"></brackets-match>
     </div>
   </div>
 </div>

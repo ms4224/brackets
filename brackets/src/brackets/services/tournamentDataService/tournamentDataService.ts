@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AUTO_WIN } from '../../keywords';
 import * as _ from 'lodash';
+import { iMatchConnection } from '../canvasDrawing/canvas-drawing.service';
 
 @Injectable({
     providedIn: 'root',
@@ -112,7 +113,7 @@ export class TournamentDataService {
         }
     }
 
-    private findAutoWinPosition(round: iTournamentRoundData): number {
+    public findAutoWinPosition(round: iTournamentRoundData): number {
         //finds player position of the auto-win for the match
         //0 is match 0, player1; 0.5 is match0, player2; etc...
         const matchIndexOfAutoWin = this.getFighterMatchIndex(autoWin, round);
@@ -162,6 +163,7 @@ export interface iMatch {
     player1: iPlayerData;
     player2: iPlayerData | undefined;
     winner: iPlayerData | undefined;
+    connectionData?: iMatchConnection;
 }
 
 export interface iPlayerData {

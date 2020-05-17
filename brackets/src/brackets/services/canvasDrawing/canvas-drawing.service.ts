@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { iTournament, iTournamentRoundData, TournamentDataService } from '../tournamentDataService/tournamentDataService';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -8,35 +10,22 @@ export class CanvasDrawingService {
   public lineConnectionSet: Array<iLine> = [];
   private canvas: any;
 
-  constructor() { }
+  constructor(private tournamentDataService: TournamentDataService) { }
 
   public registerCanvas(canvas: any) {
     this.canvas = canvas;
   }
 
-  public registerMatchConnection(matchConn: iMatchConnection) {
-    //set up round array
-    if (this.connectionGrid.length < matchConn.bracketIndex + 1) {
-      this.connectionGrid.length = matchConn.bracketIndex + 1;
-    }
-    if (this.connectionGrid[matchConn.bracketIndex] === undefined || this.connectionGrid[matchConn.bracketIndex] === null) {
-      this.connectionGrid[matchConn.bracketIndex] = [];
-    }
-    //set up match array
-    const targetMatchArray = this.connectionGrid[matchConn.bracketIndex];
-    if (targetMatchArray.length < matchConn.matchIndex) {
-      targetMatchArray.length = matchConn.matchIndex + 1;
-    }
-    //
-    targetMatchArray[matchConn.matchIndex] = matchConn;
+  public registerMatchConnection(matchConn: iMatchConnection, tournamentData: iTournament) {
+    tournamentData[matchConn.bracketIndex].matches[matchConn.matchIndex].connectionData = matchConn;
   }
 
-  public drawAllConnectionsSVG() {
+  public drawAllConnectionsSVG(tournament: iTournament) {
       const newLineSet: Array<iLine> = [];
-      for (let bI = 0; bI < this.connectionGrid.length - 1; bI++) {
-        for (let mI = 0; mI < this.connectionGrid[bI].length; mI ++) {
-          const startCoordinates = this.connectionGrid[bI][mI].back;
-          const endCoordinates = this.connectionGrid[bI + 1][Math.floor(mI/2)].front;
+      for (let bI = 0; bI < tournament.length - 1; bI++) {
+        for (let mI = 0; mI < tournament[bI].matches.length; mI ++) {
+          const startCoordinates = tournament[bI].matches[mI].connectionData.back;
+          const endCoordinates = tournament[bI + 1].matches[this.fineNextMatchIndex(mI, tournament[bI])].connectionData.front;
           const xMidpoint = startCoordinates.x + ((endCoordinates.x - startCoordinates.x)/2);
           const line1 = {x1: startCoordinates.x, y1: startCoordinates.y, x2: xMidpoint, y2: startCoordinates.y};
           const line2 = {x1: xMidpoint, y1: startCoordinates.y, x2: xMidpoint, y2: endCoordinates.y};
@@ -45,6 +34,24 @@ export class CanvasDrawingService {
         }
       }
       this.lineConnectionSet = newLineSet;
+  }
+
+  private fineNextMatchIndex(matchIndex: number, currentRound: iTournamentRoundData): number {
+    //Thi slogic is largely copied from upgrade winner logic in tournament dataservice file
+    //just used to find the right connecting match because of auto win logic
+      if (currentRound.nextRound) {
+          if (matchIndex !== undefined) {
+              const nextRound = currentRound.nextRound;
+              // 0.5 is match 0, player 2; 1 is match 1, player1; 1.5 is match1, player2; etc...
+              let nextRoundPosition = matchIndex/2;
+              const autoWinPosition = this.tournamentDataService.findAutoWinPosition(nextRound)
+              if (!_.isUndefined(autoWinPosition) && nextRoundPosition >= autoWinPosition) {
+                  //adjust position by 0.5 if there is an autowin in this bracket
+                  nextRoundPosition += 0.5;
+              }
+              return Math.floor(nextRoundPosition);
+          }
+      }
   }
 
   public drawAllConnections() {
