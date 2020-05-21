@@ -1,28 +1,32 @@
+.mantle {
+    display: inline-block;
 
-.frame-container {
-    // set up infinite width of tournament
-    height: 100%;
-    width: 100%;
-    overflow:auto;
-    overflow-y: hidden;
-    white-space:nowrap;
-    display: flex;
-    position: relative;
-    color: white;
-
-    .bracket {
-        margin-top: 20px;
-        margin-right: 100px;
+    .frame-container {
+        // set up infinite width of tournament
+        height: 100%;
+        width: 100%;
+        overflow:auto;
+        overflow-y: hidden;
+        white-space:nowrap;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        .match {
-            margin-bottom: 10px;
-            flex-grow: 1;
+        position: relative;
+        color: white;
+    
+        .bracket {
+            margin-top: 20px;
+            margin-right: 100px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+    
+            .match {
+                margin-bottom: 10px;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
         }
     }
+
 }
