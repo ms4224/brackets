@@ -8,7 +8,7 @@ import { iTournament } from 'src/brackets/services/tournamentDataService/tournam
   styleUrls: ['./tournament-svg-canvas.component.scss']
 })
 export class TournamentSvgCanvasComponent implements OnInit, AfterViewInit {
-  @ViewChild('tournamentCanvas') canvasElement: ElementRef;
+  @ViewChild('tournamentCanvas', { static: false }) canvasElement: ElementRef;
   public containerElement: any;
   @Input() tournament: iTournament; 
 
