@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TournamentDataService } from '../../services/tournamentDataService/tournamentDataService';
-import { createContestantDataFromStringList } from 'src/brackets/services/tournamentDataService/tournamentTestHelpers';
+import { createContestantDataFromStringList } from 'src/brackets/testing-tools/tournamentTestHelpers';
 
 @Component({
   selector: 'brackets-tournament',

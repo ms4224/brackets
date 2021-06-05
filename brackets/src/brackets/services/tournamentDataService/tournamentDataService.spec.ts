@@ -1,5 +1,4 @@
 import { TournamentDataService } from "./tournamentDataService"
-import { createContestantDataFromStringList, oneMatchHasAutoWin, noMatchHasAutoWin, createFakeMatchFromString, createPlayer } from './tournamentTestHelpers'
 import { autoWin, AUTO_WIN } from '../../constants';
 
 describe('tournamentDataService', () => {
@@ -253,3 +252,53 @@ describe('tournamentDataService', () => {
 
     })
 })
+
+
+
+
+function createContestantDataFromStringList(names: string[]): iContestants {
+    const result = {
+        contestantsList: [],
+        numContestants: names.length
+    }
+    names.forEach(name => {
+        result.contestantsList.push({
+            name: name
+        })
+    })
+    return result;
+}
+
+function oneMatchHasAutoWin(round: iTournamentRoundData): boolean {
+    let result = [];
+    round.matches.forEach(match => {
+        if (match.player2 && match.player2.name === AUTO_WIN) {
+            result.push(true);
+        }
+    });
+    return result.length === 1;
+}
+
+function noMatchHasAutoWin(round: iTournamentRoundData): boolean {
+    let result = [];
+    round.matches.forEach(match => {
+        if (match.player2 && match.player2.name === AUTO_WIN) {
+            result.push(true);
+        }
+    });
+    return result.length === 0;
+}
+
+function createFakeMatchFromString(player1: string, player2: string): iMatch {
+    return {
+        player1: createPlayer(player1),
+        player2: createPlayer(player2),
+        winner: undefined
+    }
+}
+
+function createPlayer(name: string): iPlayerData {
+    return {
+        name: name
+    }
+}

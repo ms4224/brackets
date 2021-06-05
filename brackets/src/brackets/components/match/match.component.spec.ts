@@ -5,7 +5,7 @@ import { MatchConnectionDrawDirective } from 'src/brackets/directives/match-conn
 import { FighterComponent } from '../fighter/fighter.component';
 import { TournamentDataService } from 'src/brackets/services/tournamentDataService/tournamentDataService';
 import { CanvasDrawingService } from 'src/brackets/services/canvasDrawing/canvas-drawing.service';
-import { createContestantDataFromStringList } from 'src/brackets/services/tournamentDataService/tournamentTestHelpers';
+import { createContestantDataFromStringList } from 'src/brackets/testing-tools/tournamentTestHelpers';
 
 describe('MatchComponent', () => {
   let component: MatchComponent;
