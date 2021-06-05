@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { iPlayerData } from 'src/brackets/services/tournamentDataService/tournamentDataService';
 
 @Component({
   selector: 'brackets-fighter',

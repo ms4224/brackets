@@ -1,6 +1,6 @@
-import { TournamentDataService, iContestants, iTournamentRoundData, iMatch, autoWin } from "./tournamentDataService"
+import { TournamentDataService } from "./tournamentDataService"
 import { createContestantDataFromStringList, oneMatchHasAutoWin, noMatchHasAutoWin, createFakeMatchFromString, createPlayer } from './tournamentTestHelpers'
-import { AUTO_WIN } from '../../keywords';
+import { autoWin, AUTO_WIN } from '../../constants';
 
 describe('tournamentDataService', () => {
     const fakeContestantSetEven: iContestants = createContestantDataFromStringList([

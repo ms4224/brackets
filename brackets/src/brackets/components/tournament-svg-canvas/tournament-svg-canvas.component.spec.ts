@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TournamentSvgCanvasComponent } from './tournament-svg-canvas.component';
 import { TournamentDataService } from 'src/brackets/services/tournamentDataService/tournamentDataService';
-import { CanvasDrawingService, iLine } from 'src/brackets/services/canvasDrawing/canvas-drawing.service';
+import { CanvasDrawingService } from 'src/brackets/services/canvasDrawing/canvas-drawing.service';
 
 describe('TournamentSvgCanvasComponent', () => {
   let component: TournamentSvgCanvasComponent;

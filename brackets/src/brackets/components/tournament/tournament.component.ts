@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TournamentDataService, iTournament } from '../../services/tournamentDataService/tournamentDataService';
+import { TournamentDataService } from '../../services/tournamentDataService/tournamentDataService';
 import { createContestantDataFromStringList } from 'src/brackets/services/tournamentDataService/tournamentTestHelpers';
 
 @Component({

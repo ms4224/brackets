@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { iTournament, iTournamentRoundData, TournamentDataService } from '../tournamentDataService/tournamentDataService';
 import * as _ from 'lodash';
+import { TournamentDataService } from '../tournamentDataService/tournamentDataService';
 
 @Injectable({
   providedIn: 'root'
@@ -47,23 +47,4 @@ export class CanvasDrawingService {
           }
       }
   }
-}
-
-export interface iMatchConnection {
-  bracketIndex: number;
-  matchIndex: number;
-  front: iCoordinate;
-  back: iCoordinate;
-}
-
-export interface iCoordinate {
-  x: number;
-  y: number;
-}
-
-export interface iLine {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
 }

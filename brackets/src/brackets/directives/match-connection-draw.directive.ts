@@ -1,6 +1,5 @@
 import { Directive, ElementRef, OnInit, Input, AfterViewInit } from '@angular/core';
 import { CanvasDrawingService } from '../services/canvasDrawing/canvas-drawing.service';
-import { iTournament } from '../services/tournamentDataService/tournamentDataService';
 
 @Directive({
   selector: '[matchConnectionDraw]'

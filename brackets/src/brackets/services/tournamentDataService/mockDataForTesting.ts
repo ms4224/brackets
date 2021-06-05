@@ -1,4 +1,4 @@
-import { iContestants } from './tournamentDataService';
+
 
 export function createContestantListFromStrings(players: string[]): iContestants {
     const result = {

@@ -1,6 +1,5 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef, Input } from '@angular/core';
-import { CanvasDrawingService, iLine } from 'src/brackets/services/canvasDrawing/canvas-drawing.service';
-import { iTournament } from 'src/brackets/services/tournamentDataService/tournamentDataService';
+import { CanvasDrawingService } from 'src/brackets/services/canvasDrawing/canvas-drawing.service';
 
 @Component({
   selector: 'brackets-tournament-svg-canvas',

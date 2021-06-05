@@ -1,5 +1,4 @@
-import { iContestants, iTournamentRoundData, iPlayerData, iMatch } from './tournamentDataService';
-import { AUTO_WIN } from 'src/brackets/keywords';
+import { AUTO_WIN } from 'src/brackets/constants';
 
 
 export function createContestantDataFromStringList(names: string[]): iContestants {
@@ -22,7 +21,7 @@ export function oneMatchHasAutoWin(round: iTournamentRoundData): boolean {
             result.push(true);
         }
     });
-    return result.length === 1 ? true : false;
+    return result.length === 1;
 }
 
 export function noMatchHasAutoWin(round: iTournamentRoundData): boolean {
@@ -32,7 +31,7 @@ export function noMatchHasAutoWin(round: iTournamentRoundData): boolean {
             result.push(true);
         }
     });
-    return result.length === 0 ? true : false;
+    return result.length === 0;
 }
 
 export function createFakeMatchFromString(player1: string, player2: string): iMatch {

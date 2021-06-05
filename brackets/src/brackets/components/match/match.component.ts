@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { iMatch, TournamentDataService, iPlayerData, iTournamentRoundData, iTournament } from 'src/brackets/services/tournamentDataService/tournamentDataService';
+import { TournamentDataService } from 'src/brackets/services/tournamentDataService/tournamentDataService';
 
 @Component({
   selector: 'brackets-match',

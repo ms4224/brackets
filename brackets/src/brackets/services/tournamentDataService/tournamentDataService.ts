@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AUTO_WIN } from '../../keywords';
+import { autoWin, AUTO_WIN } from '../../constants';
 import * as _ from 'lodash';
-import { iMatchConnection } from '../canvasDrawing/canvas-drawing.service';
 
 @Injectable({
     providedIn: 'root',
@@ -13,7 +12,7 @@ export class TournamentDataService {
     //     return this.mockData;
     // }
 
-    private createTournamentData(contestants: iContestants): iTournament {
+    public createTournamentData(contestants: iContestants): iTournament {
         const round1: iTournamentRoundData = this.create1stTournamentRound(contestants);
         const nextRoundsLinkedList: iTournamentRoundData = this.createNTournamentRounds(round1);
         round1.nextRound = nextRoundsLinkedList; //link first round to empty subsequent rounds
@@ -143,33 +142,4 @@ export class TournamentDataService {
         round.matches[luckyMatchIndex].player2 = autoWin;
     }
 
-}
-
-export interface iContestants {
-    contestantsList: Array<iPlayerData>;
-    numContestants: number;
-}
-
-export type iTournament = Array<iTournamentRoundData>;
-
-export interface iTournamentRoundData {
-    previousRound: iTournamentRoundData | null;
-    matches: iMatch[];
-    nextRound: iTournamentRoundData | undefined;
-    numContestants: number;
-}
-
-export interface iMatch {
-    player1: iPlayerData;
-    player2: iPlayerData | undefined;
-    winner: iPlayerData | undefined;
-    connectionData?: iMatchConnection;
-}
-
-export interface iPlayerData {
-    name: string;
-}
-
-export const autoWin: iPlayerData = {
-    name: AUTO_WIN
 }

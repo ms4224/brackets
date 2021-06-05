@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CanvasDrawingService, iMatchConnection } from './canvas-drawing.service';
+import { CanvasDrawingService } from './canvas-drawing.service';
 
 describe('CanvasDrawingService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
